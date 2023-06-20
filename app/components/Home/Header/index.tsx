@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
-import {MaterialCommunityIcons, Feather} from '@expo/vector-icons';
+import {Entypo, Feather} from '@expo/vector-icons';
 type props ={}
 export default function Header({}:props) {
   return (
@@ -11,10 +11,10 @@ export default function Header({}:props) {
     />
     <View style={styles.headerRight}>
       <TouchableOpacity>
-        <MaterialCommunityIcons name="camera" color="white" size={16} />
+        <Entypo name="heart-outlined" color="white" size={24} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.message}>
-        <Feather name="message-circle" color="white" size={16} />
+        <Feather name="message-circle" color="white" size={24} />
         <View style={styles.messageText}>
           <Text style={{ color: "white", textAlign: "center" }}>5</Text>
         </View>
@@ -36,11 +36,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingVertical: 0,
-        height: 100,
-        borderBottomColor: "#ccc",
-        borderBottomWidth: 1,
+        height: 80,
       },
       headerRight: {
         flexDirection: "row",
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
       },
       messageText: {
         position: "absolute",
-        right: -5,
+        right: -10,
         top: -8,
         backgroundColor: "#eb4d6d",
         padding: 3,

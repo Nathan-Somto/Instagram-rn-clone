@@ -13,7 +13,15 @@ export default function Home() {
     }}
     >
       <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-      <Stack.Screen name="Comments" component={Comments}/>
+      <Stack.Screen name="Comments" component={Comments}
+        options={{
+          headerShown:true,
+          headerTintColor:'#fff',
+          headerBackgroundContainerStyle:{
+          backgroundColor:'#000'
+          }
+        }}
+      />
     </Stack.Navigator>
   )
 }

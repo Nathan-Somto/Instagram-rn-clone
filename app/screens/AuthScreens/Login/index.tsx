@@ -15,6 +15,8 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { StackScreenProps } from "@react-navigation/stack";
+import { theme, typographyStyles } from "../../../constants";
+import ErrorMessage from "../../../components/Auth/ErrorMessage";
 
 type RootStackParamList = {
   Main: undefined;
@@ -82,7 +84,7 @@ export default function Login({
                 />
               </View>
                 {touched.email && (
-                  <Text style={styles.error}>{errors.email}</Text>
+                  <ErrorMessage>{errors.email}</ErrorMessage>
                 )}
               </View>
 
@@ -106,28 +108,28 @@ export default function Login({
                 
               </View>
               {touched.password && (
-                  <Text style={styles.error}>{errors.password}</Text>
+                  <ErrorMessage>{errors.password}</ErrorMessage>
                 )}
               </View>
               <View style={styles.forgotPasswordContainer}>
-                <Text style={{color:"#3797EF", fontWeight:"500", fontSize:14}}>Forgot Password</Text>
+                <Text style={[{color:theme.colors.primaryBlue, fontWeight:"500", fontSize:14}, typographyStyles.md]}>Forgot Password</Text>
               </View>
               <TouchableOpacity
                 style={[
                   styles.button,
-                  { backgroundColor: `${isValid ? "#3797EF" : "#9ACAF7"}` },
+                  { backgroundColor: `${isValid ? theme.colors.primaryBlue : theme.colors.secondaryBlue}` },
                 ]}
                 activeOpacity={0.5}
                 onPress={handleSubmit}
                 /* disabled={isValid} */
               >
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={[styles.buttonText, typographyStyles.md]}>Login</Text>
               </TouchableOpacity>
             </>
           )}
         </Formik>
         <View style={styles.bottomContainer}>
-          <Text style={{color:"white"}}>{"Don't"} Have an Account?</Text>
+          <Text style={[{color:"white"},typographyStyles.md]}>{"Don't"} Have an Account?</Text>
           <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
             <Text style={styles.linkText}>Sign up</Text>
           </TouchableOpacity>
@@ -157,11 +159,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom:6,
     color:"white"
-  },
-  error: {
-    color: "red",
-    marginTop: 5,
-    fontSize: 12,
   },
   image: {
    width:300,

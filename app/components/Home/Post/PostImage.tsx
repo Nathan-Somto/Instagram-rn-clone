@@ -22,16 +22,12 @@ export default function PostImages({ images }: { images: string[] }) {
     const index = Math.round(contentX / getDeviceWidth());
     setCurrImage(index);
   }
-  function handlePaginateButtonPress(index: number) {
-    if (flatListRef.current === null) return;
-    setCurrImage(index);
-    flatListRef.current.scrollToIndex({ index, animated: true });
-  }
+
   return (
     <View style={postImageStyles.container}>
       <View style={postImageStyles.slidesText}>
         <Text style={{ color: "white" }}>
-          {currImage + 1}/{images.length}
+          {currImage + 1} / {images.length}
         </Text>
       </View>
       <FlatList
@@ -39,12 +35,8 @@ export default function PostImages({ images }: { images: string[] }) {
         data={images}
         pagingEnabled
         onMomentumScrollEnd={handleScroll}
+        horizontal
         keyExtractor={(_, index) => index.toString()}
-        getItemLayout={(_, index) => ({
-          length: getDeviceWidth(),
-          offset: index * getDeviceWidth(),
-          index,
-        })}
         renderItem={({ item }) => (
           <Image style={postImageStyles.image} source={{ uri: item }} />
         )}
@@ -60,7 +52,6 @@ export default function PostImages({ images }: { images: string[] }) {
                 backgroundColor: `${currImage === index ? "#3797EF" : "#ccc"}`,
               },
             ]}
-            onPress={() => handlePaginateButtonPress(index)}
           ></TouchableOpacity>
         ))}
       </View>
@@ -73,26 +64,32 @@ const postImageStyles = StyleSheet.create({
   },
   slidesText: {
     position: "absolute",
-    top: 50,
-    right: 50,
-    height: 35,
+    top: 15,
+    right: 10,
+    height: 25,
+    zIndex:2,
     width: 50,
     borderRadius: 10,
-    backgroundColor: "gray",
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor: "#202020",
   },
   image: {
     height: 450,
     width: getDeviceWidth(),
+    resizeMode:'cover'
   },
   paginateContainer: {
     flexDirection: "row",
     position: "absolute",
-    bottom: -50,
+    bottom: -30,
+    width:"100%",
+    justifyContent:'center'
   },
   paginateButton: {
     height: 10,
     width: 10,
     borderRadius: 5,
-    matginHorizontal: 5,
+    marginHorizontal: 3,
   },
 });

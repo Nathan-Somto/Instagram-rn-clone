@@ -1,6 +1,5 @@
-type likes = {
-    likes:userRef[]
-}
+type likes = string[]
+
 type userRef = string
 type comments = Omit<IUser, "email"> & {
     comment:string,

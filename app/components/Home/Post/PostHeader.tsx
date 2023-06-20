@@ -1,5 +1,6 @@
 import { TouchableOpacity, View, StyleSheet,Image, Text } from "react-native";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
+import { typographyStyles } from "../../../constants";
 type props ={
   username: string;
   photoUrl: string;
@@ -10,12 +11,12 @@ export default function PostHeader({
   }: props) {
     return (
       <View style={PostHeaderStyles.container}>
-        <View>
+        <View style={PostHeaderStyles.userContainer}>
           <Image
             source={{ uri: `${photoUrl}` }}
             style={PostHeaderStyles.profileImg}
           />
-          <Text style={PostHeaderStyles.profileUsername}>{username}</Text>
+          <Text style={[PostHeaderStyles.profileUsername,typographyStyles.bold]}>{username}</Text>
         </View>
         <TouchableOpacity>
           <MaterialCommunityIcons
@@ -33,7 +34,12 @@ export default function PostHeader({
       flex: 1,
       alignItems: "center",
       justifyContent: "space-between",
-      paddingHorizontal: 20,
+      paddingHorizontal: 10,
+      marginVertical:10,
+    },
+    userContainer:{
+      flexDirection: "row",
+      alignItems:'center',
     },
     profileImg: {
       height: 40,
@@ -44,7 +50,7 @@ export default function PostHeader({
     },
     profileUsername: {
       fontWeight: "600",
-      fontSize: 14,
+      fontSize: 15,
       color: "white",
     },
   });

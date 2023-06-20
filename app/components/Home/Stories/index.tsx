@@ -20,6 +20,7 @@ export default function Stories({}:props) {
 const styles = StyleSheet.create({
     container:{
     marginTop: 0, 
-    paddingHorizontal: 20
+    paddingHorizontal: 10,
+    marginBottom:2
 }
 })
