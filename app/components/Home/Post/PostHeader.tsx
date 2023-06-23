@@ -46,7 +46,7 @@ export default function PostHeader({
       width: 40,
       borderRadius: 20,
       resizeMode: "contain",
-      marginRight: 15,
+      marginRight: 10,
     },
     profileUsername: {
       fontWeight: "600",

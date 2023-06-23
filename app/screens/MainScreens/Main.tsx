@@ -6,7 +6,7 @@ import Reels from "./Reels";
 import Settings from "./Settings";
 import Search from "./Search";
 import Post from "./Post";
-import { RootStackParamList } from "../AuthScreens";
+import { RootStackParamList } from "..";
 import { StackScreenProps } from "@react-navigation/stack";
 export default function Main(props:StackScreenProps<RootStackParamList,"Main">) {
   const Tabs = createBottomTabNavigator();

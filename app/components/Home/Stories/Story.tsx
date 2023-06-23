@@ -14,7 +14,7 @@ export default function Story({ image, name, id }: props) {
           storyStyles.imageContainer,
           {
             borderColor: `${id !== "-1" ? "#f54266" : "transparent"}`,
-            overflow: `${id === "-1" ? "" : "hidden"}`,
+            overflow: `${id === "-1" ? "visible" : "hidden"}`,
           },
         ]}
       >
@@ -25,7 +25,7 @@ export default function Story({ image, name, id }: props) {
           </TouchableOpacity>
         )}
       </View>
-      <Text numberOfLines={1} style={storyStyles.text}>
+      <Text numberOfLines={1} style={[storyStyles.text,{ color:`${id === "-1"?'white':"#ccc"}`}]}>
         {name}
       </Text>
     </View>
@@ -58,13 +58,12 @@ const storyStyles = StyleSheet.create({
   text: {
     fontSize: 12,
     fontWeight: "500",
-    color: "#ccc",
     textAlign: "center",
   },
   plusIcon: {
     position: "absolute",
     bottom: 0,
-    left: 2,
+    right: 2,
     zIndex: 2,
     backgroundColor: "#3797EF",
     alignItems: "center",

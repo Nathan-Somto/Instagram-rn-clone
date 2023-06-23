@@ -13,6 +13,7 @@ export default function Post({ postData }:props) {
     images,
     comments,
     caption,
+    userRef
   } = postData;
   return (
     <View style={PostStyles.container}>
@@ -23,6 +24,7 @@ export default function Post({ postData }:props) {
         username={username}
         caption={caption}
         likes={3000}
+        userRef={userRef}
       />
     </View>
   );

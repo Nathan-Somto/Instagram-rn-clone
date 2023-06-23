@@ -13,27 +13,18 @@ import {
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import { StackScreenProps } from "@react-navigation/stack";
 import { theme, typographyStyles } from "../../../constants";
 import ErrorMessage from "../../../components/Auth/ErrorMessage";
+import { RootStackParamList } from "../..";
+import { loginSchema } from "../../../schema/signIn";
 
-type RootStackParamList = {
-  Main: undefined;
-  Login: undefined;
-  Register: undefined;
-};
+
 
 export default function Login({
   navigation,
 }: StackScreenProps<RootStackParamList, "Login">) {
-  const loginSchema = Yup.object().shape({
-    email: Yup.string().email().required(),
-    password: Yup.string()
-      .min(4, "Password Length is short")
-      .max(255, "Password Length is too Long")
-      .required(),
-  });
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

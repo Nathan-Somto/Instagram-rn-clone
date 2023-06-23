@@ -1,29 +1,25 @@
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View } from 'react-native'
-import Comments from './Comments';
-import HomeScreen from './HomeScreen';
-
-
+import React from "react";
+import { ScrollView } from "react-native";
+import Screen from "../../../components/Shared/Screen";
+import Header from "../../../components/Home/Header";
+import Stories from "../../../components/Home/Stories";
+import Post from "../../../components/Home/Post";
+import { IPost } from "../../../types";
+import data from '../../../data/data.json';
 export default function Home() {
-  const Stack = createStackNavigator();
   return (
-    <Stack.Navigator
-    screenOptions={{
-      headerShown:false
-    }}
-    >
-      <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-      <Stack.Screen name="Comments" component={Comments}
-        options={{
-          headerShown:true,
-          headerTintColor:'#fff',
-          headerBackgroundContainerStyle:{
-          backgroundColor:'#000'
-          }
-        }}
-      />
-    </Stack.Navigator>
-  )
+    <Screen>
+      <ScrollView showsVerticalScrollIndicator={false} >
+        <Header />
+        <Stories />
+        {data.posts.map((postItem, _) => (
+          <Post
+            key={postItem.userRef}
+            postData={postItem as unknown as IPost}
+          />
+        ))}
+      </ScrollView>
+    </Screen>
+  );
 }
 
-const styles = StyleSheet.create({})

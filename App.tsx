@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import StackNavigator from './app/screens/AuthScreens'
+import StackNavigator from './app/screens'
 import {useFonts} from  'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react';
