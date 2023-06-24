@@ -21,6 +21,7 @@ export default function AuthScreens() {
       screenOptions={{
         headerShown:false
       }}
+      initialRouteName="Welcome"
     >
       <Stack.Group>
       <Stack.Screen name="Main" component={Main} />

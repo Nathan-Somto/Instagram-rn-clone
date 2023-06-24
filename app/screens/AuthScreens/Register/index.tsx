@@ -15,11 +15,9 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { StackScreenProps } from "@react-navigation/stack";
 import { theme, typographyStyles } from "../../../constants";
-import ErrorMessage from "../../../components/Auth/ErrorMessage";
 import { RootStackParamList } from "../..";
 import { signupSchema } from "../../../schema/signUp";
-
-
+import { ErrorMessage,Button } from "../../../components/Auth";
 
 export default function Register({
   navigation,
@@ -32,118 +30,114 @@ export default function Register({
       <StatusBar style="auto" />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
-        <Image
-          source={require("../../../../assets/insta-logo.png")}
-          style={styles.image}
-        />
-        <Formik
-          initialValues={{ username:"",email: "", password: "" }}
-          onSubmit={(value) => {
-            console.log(value);
-            navigation.navigate("Main");
-          }}
-          validationSchema={signupSchema}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            touched,
-            errors,
-            isValid,
-          }) => (
-            <>
-              <View style={styles.inputContainer}>
-              <View
-                style={[
-                  styles.input,
-                  { borderColor: `${errors.username ? "red" : "#ccc"}` },
-                ]}
-              >
-                <TextInput
-                  placeholderTextColor={"#444"}
-                  placeholder="Username"
-                  autoComplete="username"
-                  keyboardType="default"
-                  autoCapitalize="none"
-                  onChangeText={handleChange("username")}
-                  onBlur={handleBlur("username")}
-                  value={values.username}
-                  style={{color:"white"}}
-                />
-              </View>
-                {touched.username && (
-                  <ErrorMessage>{errors.username}</ErrorMessage>
-                )}
-              </View>
-              <View style={styles.inputContainer}>
-              <View
-                style={[
-                  styles.input,
-                  { borderColor: `${errors.username ? "red" : "#ccc"}` },
-                ]}
-              >
-                <TextInput
-                  placeholderTextColor={"#444"}
-                  placeholder="Email Address"
-                  autoComplete="email"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  style={{color:"white"}}
-                />
-              </View>
-                {touched.email && (
-                  <ErrorMessage>{errors.email}</ErrorMessage>
-                )}
-              </View>
+          <Image
+            source={require("../../../../assets/insta-logo.png")}
+            style={styles.image}
+          />
+          <Formik
+            initialValues={{ username: "", email: "", password: "" }}
+            onSubmit={(value) => {
+              console.log(value);
+              navigation.navigate("Main");
+            }}
+            validationSchema={signupSchema}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              touched,
+              errors,
+              isValid,
+            }) => (
+              <>
+                <View style={styles.inputContainer}>
+                  <View
+                    style={[
+                      styles.input,
+                      { borderColor: `${errors.username ? "red" : "#ccc"}` },
+                    ]}
+                  >
+                    <TextInput
+                      placeholderTextColor={"#444"}
+                      placeholder="Username"
+                      autoComplete="username"
+                      keyboardType="default"
+                      autoCapitalize="none"
+                      onChangeText={handleChange("username")}
+                      onBlur={handleBlur("username")}
+                      value={values.username}
+                      style={{ color: "white" }}
+                    />
+                  </View>
+                  {touched.username && (
+                    <ErrorMessage>{errors.username}</ErrorMessage>
+                  )}
+                </View>
+                <View style={styles.inputContainer}>
+                  <View
+                    style={[
+                      styles.input,
+                      { borderColor: `${errors.username ? "red" : "#ccc"}` },
+                    ]}
+                  >
+                    <TextInput
+                      placeholderTextColor={"#444"}
+                      placeholder="Email Address"
+                      autoComplete="email"
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      onChangeText={handleChange("email")}
+                      onBlur={handleBlur("email")}
+                      value={values.email}
+                      style={{ color: "white" }}
+                    />
+                  </View>
+                  {touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                </View>
 
-              <View style={styles.inputContainer}>
-
-              <View
-                style={[
-                  styles.input,
-                  { borderColor: `${errors.password ? "red" : "#ccc"}` },
-                ]}
-              >
-                <TextInput
-                  placeholderTextColor={"#444"}
-                  placeholder="Password"
-                  autoCapitalize="none"
-                  secureTextEntry
-                  onChangeText={handleChange("password")}
-                  value={values.password}
-                  style={{color:"white"}}
-                />
-                
-              </View>
-              {touched.password && (
-                  <ErrorMessage>{errors.password}</ErrorMessage>
-                )}
-              </View>
-              <TouchableOpacity
-                style={[
-                  styles.button,
-                  { backgroundColor: `${isValid ? theme.colors.primaryBlue : theme.colors.secondaryBlue}` },
-                ]}
-                activeOpacity={0.5}
-                onPress={handleSubmit}
-                /* disabled={isValid} */
-              >
-                <Text style={[styles.buttonText, typographyStyles.md]}>Sign Up</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </Formik>
-        <View style={styles.bottomContainer}>
-          <Text style={[{color:"white"},typographyStyles.md]}>Have an Account?</Text>
-          <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
-            <Text style={styles.linkText}>Sign in</Text>
-          </TouchableOpacity>
-        </View>
+                <View>
+                  <View
+                    style={[
+                      styles.input,
+                      { borderColor: `${errors.password ? "red" : "#ccc"}` },
+                    ]}
+                  >
+                    <TextInput
+                      placeholderTextColor={"#444"}
+                      placeholder="Password"
+                      autoCapitalize="none"
+                      secureTextEntry
+                      onChangeText={handleChange("password")}
+                      value={values.password}
+                      style={{ color: "white" }}
+                    />
+                  </View>
+                  {touched.password && (
+                    <ErrorMessage>{errors.password}</ErrorMessage>
+                  )}
+                </View>
+                <Button
+                  activeOpacity={0.5}
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                  btnStyle={{ marginBottom: 25, marginTop: 30 }}
+                  bgColor={`${!isValid ? theme.colors.secondaryBlue : ""}`}
+                >
+                  Signup
+                </Button>
+              </>
+            )}
+          </Formik>
+          <View style={styles.bottomContainer}>
+            <Text style={[{ color: "white" }, typographyStyles.md]}>
+              Have an Account?
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.linkText}>Sign in</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -155,10 +149,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"black"
+    backgroundColor: "black",
   },
-  inputContainer:{
-    marginBottom: 12,
+  inputContainer: {
+    marginBottom: 15,
   },
   input: {
     width: 300,
@@ -167,37 +161,23 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     padding: 12,
     borderRadius: 6,
-    marginBottom:6,
-    color:"white"
+    marginBottom: 6,
+    color: "white",
+    height: 45,
   },
   image: {
-   width:300,
-  resizeMode:"contain",
-  marginBottom: 6,
-  },
-  button: {
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    height: 45,
     width: 300,
-    borderRadius: 6,
+    resizeMode: "contain",
+    marginBottom: 6,
+  },
+  bottomContainer: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20
   },
-  buttonText:{
-    fontWeight:'600',
-    color:'white',
-    fontSize:14
-  },
-  bottomContainer:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:"center"
-  },
-  linkText:{
-    color:"#3797EF",
-    marginLeft:5.5,
-    fontWeight:"600"
+  linkText: {
+    color: "#3797EF",
+    marginLeft: 5.5,
+    fontWeight: "600",
   },
 });
