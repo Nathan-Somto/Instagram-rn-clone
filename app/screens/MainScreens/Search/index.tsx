@@ -2,13 +2,8 @@ import { StyleSheet, Text, TextInput, View, TouchableOpacity,Image, TouchableWit
 import Screen from "../../../components/Shared/Screen";
 import React from "react";
 import { Feather } from "@expo/vector-icons";
-function Picture(){
-  return(
-    <View style={{width:"33%",padding:2}}>
-      <Image source={{uri:'https://picsum.photos/300'}} style={{height:200, width:200}}/>
-    </View>
-  )
-}
+import Picture from "../../../components/Search/Picture";
+
 export default function Search() {
   return (
     <Screen>
