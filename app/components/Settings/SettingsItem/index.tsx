@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ViewStyle,
 } from "react-native";
-import { data, itemType } from "../types";
+import { data, itemType } from "../types/settings";
 import {
   MaterialCommunityIcons,
   Feather,

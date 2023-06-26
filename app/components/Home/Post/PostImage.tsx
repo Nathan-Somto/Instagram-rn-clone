@@ -10,16 +10,16 @@ import {
   NativeScrollEvent,
 } from "react-native";
 import { useRef, useState } from "react";
-function getDeviceWidth() {
-  return Dimensions.get("window").width;
-}
+import { getDeviceWidth } from "../../../utils";
+
+const ITEM_WIDTH = getDeviceWidth();
 export default function PostImages({ images }: { images: string[] }) {
   const [currImage, setCurrImage] = useState(0);
   const flatListRef = useRef<FlatList<string>>(null);
   function handleScroll(e: NativeSyntheticEvent<NativeScrollEvent>) {
     // how far the item is from the x origin.
     const contentX = e.nativeEvent.contentOffset.x;
-    const index = Math.round(contentX / getDeviceWidth());
+    const index = Math.round(contentX / ITEM_WIDTH);
     setCurrImage(index);
   }
 
@@ -76,7 +76,7 @@ const postImageStyles = StyleSheet.create({
   },
   image: {
     height: 450,
-    width: getDeviceWidth(),
+    width: ITEM_WIDTH,
     resizeMode:'cover'
   },
   paginateContainer: {
@@ -87,8 +87,8 @@ const postImageStyles = StyleSheet.create({
     justifyContent:'center'
   },
   paginateButton: {
-    height: 10,
-    width: 10,
+    height: 7,
+    width: 7,
     borderRadius: 5,
     marginHorizontal: 3,
   },

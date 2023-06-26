@@ -18,5 +18,6 @@ export default function Screen({children}:props) {
 const styles = StyleSheet.create({
     container:{
     backgroundColor:theme.colors.primaryBlack,
-    flex:1
+    flex:1,
+    position:"relative"
 }})

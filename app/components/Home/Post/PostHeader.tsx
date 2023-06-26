@@ -50,7 +50,9 @@ export default function PostHeader({
     },
     profileUsername: {
       fontWeight: "600",
-      fontSize: 15,
+      fontSize: 16,
       color: "white",
+     textDecorationLine:"underline",
+     textDecorationColor:"#fff"
     },
   });

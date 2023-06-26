@@ -1,6 +1,6 @@
 import { SectionList, StyleSheet, View } from "react-native";
 import SettingsItem from "../SettingsItem";
-import { data } from "../types";
+import { data } from "../types/settings";
 import React from "react";
 const ItemSeparator: React.FC = () => <View style={styles.separator} />;
 export default function SettingsList() {
