@@ -8,8 +8,17 @@ import Search from "./Search";
 import Post from "./Post";
 import { RootStackParamList } from "..";
 import { StackScreenProps } from "@react-navigation/stack";
+
+  export type MainTabsParamList = {
+  Home:undefined;
+  Post: undefined;
+  Search:undefined;
+  Reels:undefined;
+  Settings:undefined;
+};
+
 export default function Main(props:StackScreenProps<RootStackParamList,"Main">) {
-  const Tabs = createBottomTabNavigator();
+  const Tabs = createBottomTabNavigator<MainTabsParamList>();
   return (
     <Tabs.Navigator
       screenOptions={{

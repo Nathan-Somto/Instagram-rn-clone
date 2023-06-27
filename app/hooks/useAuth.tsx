@@ -1,5 +1,14 @@
-import React, { useContext, useReducer, createContext, ReactNode, useEffect } from "react";
-import { User } from "firebase/auth";
+import React, {
+  useContext,
+  useReducer,
+  createContext,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import Loader from "../components/Shared/Loader";
 type initialState = {
   user: null | User;
 };
@@ -10,7 +19,7 @@ type action = {
 };
 type authValue = {
   dispatch: React.Dispatch<action>;
-  state: initialState;
+  user: null | User;
 };
 type reducerFunc = (state: initialState, action: action) => initialState;
 const AuthContext = createContext<authValue | null>(null);
@@ -29,11 +38,25 @@ function useAuth() {
 }
 function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer<reducerFunc>(reducer, { user: null });
-  useEffect(()=>{
-    
-  },[]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const unSub = onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        dispatch({ type: "Login", payload: user });
+      } else {
+        dispatch({ type: "Logout", payload: user });
+      }
+      setLoading(false);
+    });
+    return unSub;
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );

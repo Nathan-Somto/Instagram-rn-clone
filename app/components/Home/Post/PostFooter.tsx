@@ -3,85 +3,80 @@ import {
   View,
   StyleSheet,
   Text,
-  Modal,
-  TextInput,
   Image,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
-import { comments } from "../../../types";
-import { theme, typographyStyles } from "../../../constants";
+import { comments, likes } from "../../../types";
+import { typographyStyles } from "../../../constants";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import CommentModal from "../../Shared/CommentModal";
 import { RootStackParamList } from "../../../screens";
+import useAuth, { authValue } from "../../../hooks/useAuth";
+import { User } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+import Caption from "./Caption";
 type props = {
   comments: comments[];
-  likes: number;
+  likes: likes;
   caption: string;
   username: string;
-  userRef: string;
+  id:string;
 };
-type captionProps = {
-  children: React.ReactNode;
-};
-function Caption({ children }: captionProps) {
-  const [showMore, setShowMore] = useState(false);
-  return (
-    <View style={CaptionStyles.captionContainer}>
-      <Text
-        style={[CaptionStyles.caption]}
-        numberOfLines={showMore ? undefined : 1}
-      >
-        {children}
-        {!showMore ? "..." : ""}
-      </Text>
-      {!showMore && (
-        <TouchableOpacity
-          onPress={() => setShowMore((prevState) => !prevState)}
-        >
-          <Text style={[CaptionStyles.moreBtn, typographyStyles.bold]}>
-            more
-          </Text>
-        </TouchableOpacity>
-      )}
-    </View>
-  );
-}
-const CaptionStyles = StyleSheet.create({
-  captionContainer: {
-    flexDirection: "row",
-    flex: 0.9,
-  },
-  caption: {
-    color: "#fff",
-    fontWeight: "300",
-    fontSize: 16,
-    marginRight: 1,
-    fontFamily: "Os_Condensed-regular",
-  },
-  moreBtn: {
-    fontSize: 16,
-    color: "#fff",
-  },
-});
-
 export default function PostFooter({
   comments,
   likes,
   caption,
   username,
-  userRef,
+  id,
 }: props) {
-  const navigation = useNavigation<NavigationProp<RootStackParamList, "Main">>();
-  const [liked, setLiked] = useState(false);
+  const navigation =
+    useNavigation<NavigationProp<RootStackParamList, "Main">>();
+  const {user} = useAuth() as authValue;
+  const [hasLiked, setHasLiked] = useState(-1);
   const [showModal, setShowModal] = useState(false);
-  
+  // check the likes array to see if the userRef is in it.
+  // if not liked add userRef to firebase.
+  // if liked remove userRef from firebase and change staet accordingly
+  useEffect(()=>{
+    if(user !== null)
+    {
+      const userLiked = likes.findIndex((userLike)=> userLike === (user as User).uid);
+      setHasLiked(userLiked);
+    }
+  },[likes,user]);
+  async function handleLike()
+  {
+    try{
+
+      const updatedLikes = [...likes];
+      // user has liked and wants to unlike
+      if(hasLiked !== -1)
+      {
+       updatedLikes.splice(hasLiked,1); 
+      }
+      else{
+        if(user !== null)
+        {
+          updatedLikes.push(user.uid);
+        }
+        }
+        await updateDoc(doc(db, 'posts', id),{
+          likes:updatedLikes
+         });
+    }
+    catch(err)
+    {
+
+    }
+  }
   return (
     <View>
       <View style={postFooterStyles.iconsContainer}>
         <View style={postFooterStyles.iconsContainerLeft}>
-          <TouchableOpacity onPress={() => setLiked((prevState) => !prevState)}>
-            {!liked ? (
+          <TouchableOpacity onPress={handleLike}>
+            {hasLiked === -1 ? (
               <Entypo name="heart-outlined" size={25} color="white" />
             ) : (
               <Entypo name="heart" size={25} color="red" />
@@ -101,10 +96,10 @@ export default function PostFooter({
       {/* Likes count */}
       <View style={postFooterStyles.likesContainer}>
         <Text style={[postFooterStyles.likesText, typographyStyles.bold]}>
-          {(liked ? likes + 1 : likes).toLocaleString("en")}
+          {likes.length.toLocaleString("en")}
         </Text>
         <Text style={[postFooterStyles.likesText, typographyStyles.bold]}>
-          like{likes > 1 ? "s" : ""}
+          like{likes.length > 1 ? "s" : ""}
         </Text>
       </View>
       <View style={postFooterStyles.captionContainer}>
@@ -123,7 +118,7 @@ export default function PostFooter({
       {comments.length !== 0 && (
         <TouchableOpacity
           style={postFooterStyles.commentContainer}
-          onPress={() => navigation.navigate("Comments", { userRef })}
+          onPress={() => navigation.navigate("Comments", { id })}
         >
           <Text style={[postFooterStyles.comment, typographyStyles.bold]}>
             View {comments.length > 1 ? "all" : ""} {comments.length} comment
@@ -140,16 +135,17 @@ export default function PostFooter({
           <Image
             style={{ height: 25, width: 25 }}
             source={{
-              uri: "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
+              uri: user?.photoURL ?? "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
             }}
           />
         </View>
-        <Text
-          style={[postFooterStyles.addCommentInput, typographyStyles.bold]}
-        > Add Comment...</Text>
+        <Text style={[postFooterStyles.addCommentInput, typographyStyles.bold]}>
+          {" "}
+          Add Comment...
+        </Text>
       </TouchableOpacity>
       {/* Add Comment Modal */}
-      <CommentModal isVisible={showModal} toggleVisible={setShowModal} />
+      <CommentModal isVisible={showModal} toggleVisible={setShowModal} id={id} />
     </View>
   );
 }
@@ -175,7 +171,6 @@ const postFooterStyles = StyleSheet.create({
   username: {
     color: "#fff",
     fontSize: 17,
-   
   },
   likesText: {
     color: "white",
@@ -212,6 +207,6 @@ const postFooterStyles = StyleSheet.create({
   addCommentInput: {
     color: "#bbb",
     fontSize: 14,
-    alignSelf:'center'
+    alignSelf: "center",
   },
 });

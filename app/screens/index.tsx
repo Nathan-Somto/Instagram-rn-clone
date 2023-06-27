@@ -5,24 +5,27 @@ import Main from "./MainScreens/Main";
 import {Feather} from '@expo/vector-icons';
 import Comments from "./MainScreens/Comments";
 import Welcome from "./AuthScreens/Welcome";
+import useAuth,{authValue} from '../hooks/useAuth';
 export type RootStackParamList = {
   Welcome:undefined;
   Main: undefined;
   Login:undefined;
   Register:undefined;
   Comments:{
-    userRef:string
+    id:string
   }
 };
-export default function AuthScreens() {
+export default function Screens() {
   const Stack = createStackNavigator<RootStackParamList>();
+  const {user} = useAuth() as authValue;
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown:false
       }}
-      initialRouteName="Main"
-    >
+     
+    >{
+      user?(
       <Stack.Group>
       <Stack.Screen name="Main" component={Main} />
       <Stack.Screen name="Comments" component={Comments}
@@ -40,11 +43,14 @@ export default function AuthScreens() {
         }}
       />
       </Stack.Group>
+      ):(
       <Stack.Group>
       <Stack.Screen name="Welcome" component={Welcome}/>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       </Stack.Group>
+      )
+      }
     </Stack.Navigator>
   );
 }

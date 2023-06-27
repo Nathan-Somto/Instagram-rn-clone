@@ -14,12 +14,10 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { typographyStyles } from "../../../constants";
-/* 
-  Feather - star 
-  Octicon -  issue-open
-  Feather - code
-  MaterialCommunityIcons - logout
- */
+import { signOut } from "firebase/auth";
+import { auth } from "../../../lib/firebase";
+import useAuth, { authValue } from "../../../hooks/useAuth";
+
 type props = data & {
   isLastItem: boolean;
   isFirstItem: boolean;
@@ -31,6 +29,7 @@ export default function SettingsItem({
   isFirstItem,
   isLastItem,
 }: props) {
+  const { dispatch } = useAuth() as authValue;
   async function pressHandler(item: itemType) {
     const baseUrl = "https://github.com/Nathan-Somto/Instagram-rn-clone";
     switch (item) {
@@ -44,7 +43,8 @@ export default function SettingsItem({
         await Linking.openURL(baseUrl);
         break;
       case "Logout":
-        console.log("handle firebase logout.");
+        await signOut(auth);
+        dispatch({ type: "Logout", payload: null });
         break;
       default:
         break;
@@ -68,10 +68,13 @@ export default function SettingsItem({
           style={[styles.iconWrapper, { backgroundColor: color } as ViewStyle]}
         >
           {item === "Check the Source Code" || item === "Leave a Star" ? (
+            //@ts-ignore
             <Feather name={icon} size={18} color={"white"} />
           ) : item === "Open an Issue" ? (
+            //@ts-ignore
             <Octicons name={icon} size={18} color={"white"} />
           ) : (
+            //@ts-ignore
             <MaterialCommunityIcons name={icon} size={18} color={"white"} />
           )}
         </View>
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   iconWrapper: {
     width: 32,

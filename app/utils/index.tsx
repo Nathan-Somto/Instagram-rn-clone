@@ -1,3 +1,4 @@
+import { FieldValue, Timestamp } from "firebase/firestore";
 import { Dimensions } from "react-native";
 
 function getDeviceHeight() {
@@ -35,4 +36,7 @@ function formatNumber(num:number){
   }
   return strNum;
 }
-export {getDeviceHeight,getDeviceWidth,formatNumber};
+function formatTimestamp(timestamp:FieldValue | Timestamp | string){
+  return `${timestamp}`;
+}
+export {getDeviceHeight,getDeviceWidth,formatNumber,formatTimestamp};

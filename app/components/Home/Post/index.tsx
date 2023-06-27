@@ -4,16 +4,17 @@ import PostImages from "./PostImage";
 import PostHeader from "./PostHeader";
 import { View, StyleSheet } from "react-native";
 import { IPost } from "../../../types";
-type props ={
-  postData:IPost
-}
-export default function Post({ postData }:props) {
+type props = {
+  postData: IPost;
+};
+export default function Post({ postData }: props) {
   const {
     user: { username, photoUrl },
     images,
     comments,
     caption,
-    userRef
+    id,
+    likes
   } = postData;
   return (
     <View style={PostStyles.container}>
@@ -23,8 +24,8 @@ export default function Post({ postData }:props) {
         comments={comments}
         username={username}
         caption={caption}
-        likes={3000}
-        userRef={userRef}
+        likes={likes}
+        id={id}
       />
     </View>
   );

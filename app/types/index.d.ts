@@ -1,10 +1,12 @@
+import { Timestamp,FieldValue } from "firebase/firestore";
+
 type likes = string[]
 
 type userRef = string
 type comments = {
     user:Omit<IUser, "email">,
     comment:string,
-    createdAt:string
+    timestamp:FieldValue | Timestamp | string,
 }
 interface IUser{
     username:string,
@@ -12,12 +14,13 @@ interface IUser{
     email:string,
 }
 interface IPost{
-    user:IUser,
+    user:Omit<IUser, 'email'>,
     images:string[],
     caption:string,
-    createdAt:string,
+    timestamp:FieldValue | Timestamp | string,
     likes:likes,
     comments:comments[],
     userRef:userRef,
+    id:string;
 }
 export {IPost, IUser, comments, likes}

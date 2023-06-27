@@ -3,6 +3,7 @@ import StackNavigator from './app/screens'
 import {useFonts} from  'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react';
+import { AuthProvider } from './app/hooks/useAuth';
 SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,7 +27,9 @@ export default function App() {
   
   return (
     <NavigationContainer >
+      <AuthProvider>
       <StackNavigator/>
+      </AuthProvider>
     </NavigationContainer>
   );
 }

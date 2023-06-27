@@ -18,7 +18,6 @@ import { AVPlaybackStatus, ResizeMode, Video } from "expo-av";
 import ReelsBtns from "./ReelsBtns";
 import { getDeviceHeight, getDeviceWidth } from "../../../utils";
 import { Ionicons } from "@expo/vector-icons";
-import Reels from "../../../screens/MainScreens/Reels";
 import { typographyStyles } from "../../../constants";
 type props = IReels & {
   handleScroll: Dispatch<SetStateAction<number>>;

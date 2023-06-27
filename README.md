@@ -5,21 +5,20 @@
 </div>
 
 ## Description
-A simple Instagram clone built with react native.  
+A simple Instagram clone built with react native and expo SDK. 
 
 ## Features
  App main features.
 - Create Posts 
 - Take a picture from your camera  or camer library.
-- Comment on Posts.
+- Comment on Posts functionality.
 - Like Posts functionality
 - View all Posts functionality.
-- Custom Image Carousel (Could not find a proper package)
 - Authentication functionality.
 - Dark mode by default (Cause why not?)
 - Ui clone
 - Form validation
-- Profile update functionality.
+- Profile image update functionality.
 - Stack Navigation
 - Tab Navigation
 
@@ -28,23 +27,27 @@ A simple Instagram clone built with react native.
 - Welcome Screen
 - Login Screen
 - Register Screen
-- Main Screen
+- Main Screen (Tab Navigation)
    - Home Screeen
    - Reels Screen
    - Post Screen
    - Search Screen
    - Settings Screen
+- Comments Screen
 
 ## Tech
  What i used for the project.
+### Front End
 - React Native
 - React
 - Typescript
 - Expo
-- Firebase
 - Formik
 - Yup
 - React Navigation
+
+### Back End
+- Firebase
 
 ## Status
 

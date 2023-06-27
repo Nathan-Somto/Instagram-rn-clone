@@ -1,24 +1,28 @@
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, Image} from "react-native";
 import React, { useEffect, useState } from "react";
 import Screen from "../../../components/Shared/Screen";
 import CommentModal from "../../../components/Shared/CommentModal";
 import { StackScreenProps } from "@react-navigation/stack";
-import data from "../../../data/data.json";
-import { comments } from "../../../types";
+import { IPost, comments } from "../../../types";
 import { typographyStyles } from "../../../constants";
 import { RootStackParamList } from "../..";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+import Loader from "../../../components/Shared/Loader";
 type commentBoxProps = {
   url: string;
   username: string;
   comment: string;
+  timestamp : string;
 };
-function CommentBox({ url, username, comment }: commentBoxProps) {
+function CommentBox({ url, username, comment, timestamp }: commentBoxProps) {
   return (
     <View style={CommentBoxStyles.container}>
       <Image style={CommentBoxStyles.image} source={{ uri: url }} />
       <View>
         <Text style={[CommentBoxStyles.username, typographyStyles.md]}>
-          {username}{"  "} <Text style={CommentBoxStyles.createdAt}>10h</Text>
+          {username}
+          {"  "} <Text style={CommentBoxStyles.createdAt}>{timestamp}</Text>
         </Text>
         <Text style={[CommentBoxStyles.comment, typographyStyles.md]}>
           {comment}
@@ -40,7 +44,7 @@ const CommentBoxStyles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 15,
     marginRight: 10,
-    marginTop:5
+    marginTop: 5,
   },
   username: {
     fontSize: 14,
@@ -59,63 +63,80 @@ const CommentBoxStyles = StyleSheet.create({
 export default function Comments({
   route,
 }: StackScreenProps<RootStackParamList, "Comments">) {
-  const { userRef } = route.params;
+ /** @todo format timestamp */
+  const { id } = route.params;
+  const [loading, setLoading] = useState<boolean>(false);
   const [comments, setComments] = useState<comments[]>([]);
   const [caption, setCaption] = useState({
     caption: "",
     photoUrl: "",
     username: "",
+    timestamp:""
   });
   useEffect(() => {
-    const post = data.posts.find((item) => item.userRef === userRef);
-    if (post) {
-      const {
-        caption,
-        comments,
-        user: { photoUrl, username },
-      } = post;
-      setCaption({
-        caption,
-        photoUrl,
-        username,
-      });
-      setComments([...comments]);
-    }
-  }, [userRef]);
+    const unSubscribe = onSnapshot(
+      doc(db,'posts',id),(snapshot)=>{
+        if(snapshot.exists()){
+          let {
+            caption,
+            comments,
+            user: { photoUrl, username },
+            timestamp
+          } = snapshot.data() as IPost;
+          photoUrl =
+            photoUrl.length === 0
+              ? "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png"
+              : photoUrl;
+          setCaption({
+            caption,
+            photoUrl,
+            username,
+            timestamp: timestamp as string
+          });
+          setComments([...comments]);
+        }  
+    });
+    return unSubscribe();
+  }, [db,id]);
 
   return (
-    <Screen>
-      <View style={styles.commentHeader}>
-        <CommentBox
-          url={caption.photoUrl}
-          username={caption.username}
-          comment={caption.caption}
-        />
-      </View>
-      {comments.length ? (
-        <FlatList
-          data={comments}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={({ item }) => (
-            <CommentBox
-              url={item.user.photoUrl}
-              username={item.user.username}
-              comment={item.comment}
-            />
-          )}
-        />
-      ) : (
-        <View style={styles.noCommentContainer}>
-          <Text
-            style={[{ color: "#fff", fontSize: 17 }, typographyStyles.bold]}
-          >
-            No Comments
-          </Text>
+    <>
+      {loading && <Loader />}
+      <Screen>
+        <View style={styles.commentHeader}>
+          <CommentBox
+            url={caption.photoUrl}
+            username={caption.username}
+            comment={caption.caption}
+            timestamp={caption.timestamp}
+          />
         </View>
-      )}
-      <CommentModal isVisible={true} />
-    </Screen>
+        {comments.length ? (
+          <FlatList
+            data={comments}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item }) => (
+              <CommentBox
+                url={item.user.photoUrl}
+                username={item.user.username}
+                comment={item.comment}
+                timestamp={item.timestamp as string}
+              />
+            )}
+          />
+        ) : (
+          <View style={styles.noCommentContainer}>
+            <Text
+              style={[{ color: "#fff", fontSize: 17 }, typographyStyles.bold]}
+            >
+              No Comments
+            </Text>
+          </View>
+        )}
+        <CommentModal isVisible={true} id={id} />
+      </Screen>
+    </>
   );
 }
 

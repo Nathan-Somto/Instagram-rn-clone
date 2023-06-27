@@ -1,41 +1,24 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SectionList,
-  TouchableOpacity,
-  Linking,
-} from "react-native";
 import React from "react";
 import { IUser } from "../../../types";
 import Screen from "../../../components/Shared/Screen";
-import { typographyStyles } from "../../../constants";
 import { SettingsList, UserProfile } from "../../../components/Settings";
+import useAuth, { authValue } from "../../../hooks/useAuth";
 
 export default function Settings() {
-  const user: IUser = {
-    username: "nathan_somto",
-    email: "nathanSomto@gmail.com",
-    photoUrl:
-      "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
+  const {
+     user ,
+  } = useAuth() as authValue;
+  const userData: IUser = {
+    username: user?.displayName ?? "",
+    photoUrl: user?.photoURL
+      ? user.photoURL
+      : "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
+    email: user?.email ?? "",
   };
   return (
     <Screen>
-      <UserProfile {...user} />
-      {/*
-        First three options
-        Leave a star https://github.com/Nathan-Somto/Instagram-rn-clone
-        Drop an Issue https://github.com/Nathan-Somto/Instagram-rn-clone/issues
-        Check Source Code https://github.com/Nathan-Somto/Instagram-rn-clone
-     */}
-      {/*
-        Last Option
-        Log out 
-      */}
+      <UserProfile {...userData} />
       <SettingsList />
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -6,9 +6,7 @@ import {ReelsHeader,ReelsVideos} from '../../../components/Reels';
 export default function Reels() {
   return (
    <Screen>
-    {/* Reels Header */}
       <ReelsHeader/>
-    {/* Reels Videos - Reels Card */}
       <ReelsVideos data={data.reels}/>
    </Screen>
   )

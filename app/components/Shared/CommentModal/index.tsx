@@ -13,15 +13,36 @@ import {
   Platform
 } from "react-native";
 import { theme } from "../../../constants";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { comments } from "../../../types";
+import useAuth, { authValue } from "../../../hooks/useAuth";
+import { db } from "../../../lib/firebase";
 type props = {
   isVisible: boolean;
   toggleVisible?: Dispatch<SetStateAction<boolean>>;
+  id:string;
 };
-export default function CommentModal({ isVisible, toggleVisible }: props) {
+export default function CommentModal({ isVisible, toggleVisible,id }: props) {
+  const {user} = useAuth() as authValue;
   const [comment, setComment] = useState("");
   const emojis = ["🔥","😀", "😊", "👍", "❤️", "😂", "🙌", "😎"];
-  function handlePost() {
-    console.log("clicked");
+  async function handlePost() {
+    try{
+      
+      if(comment.length && user !== null){
+        const commentToSend = comment;
+        setComment('');
+        const addComment:comments ={
+            comment: commentToSend,
+            user:{
+              username:user.displayName as string,
+              photoUrl:user.photoURL as string
+            },
+            timestamp:serverTimestamp()
+        }
+        await updateDoc(doc(db,'posts',id), {comments:addComment});
+      }
+    }catch(err){}
   }
   return (
       <Modal visible={isVisible} animationType="slide" transparent={true}>
@@ -49,7 +70,7 @@ export default function CommentModal({ isVisible, toggleVisible }: props) {
           <Image
             style={{ height: 50, width: 50 }}
             source={{
-              uri: "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
+              uri:user?.photoURL ?? "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png",
             }}
           />
         </View>
