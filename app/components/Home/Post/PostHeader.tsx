@@ -13,7 +13,7 @@ export default function PostHeader({
       <View style={PostHeaderStyles.container}>
         <View style={PostHeaderStyles.userContainer}>
           <Image
-            source={{ uri: `${photoUrl}` }}
+            source={{ uri: `${photoUrl.length ? photoUrl : "https://w7.pngwing.com/pngs/256/355/png-transparent-computer-icons-female-jewelry-head-silhouette-avatar.png"}` }}
             style={PostHeaderStyles.profileImg}
           />
           <Text style={[PostHeaderStyles.profileUsername,typographyStyles.bold]}>{username}</Text>

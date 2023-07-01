@@ -42,11 +42,11 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
-      if (user !== null) {
+      if (user) {
         dispatch({ type: "Login", payload: user });
-      } else {
+      } /* else {
         dispatch({ type: "Logout", payload: user });
-      }
+      } */
       setLoading(false);
     });
     return unSub;

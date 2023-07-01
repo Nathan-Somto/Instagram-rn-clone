@@ -26,22 +26,9 @@ export default function Screens() {
      
     >{
       user?(
-      <Stack.Group>
+      <Stack.Group screenOptions={{animationTypeForReplace:'pop',}}>
       <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen name="Comments" component={Comments}
-        options={{
-          headerTintColor:'#fff',
-          headerStyle: {
-            backgroundColor: '#000',
-            borderBottomColor:"#555"
-          },
-          headerBackTitleVisible: false,
-          headerShown:true,
-          headerRight: ()=>(
-            <Feather name="info" color={'#fff'} size={20}/>
-          ),
-        }}
-      />
+      <Stack.Screen name="Comments" component={Comments}/>
       </Stack.Group>
       ):(
       <Stack.Group>

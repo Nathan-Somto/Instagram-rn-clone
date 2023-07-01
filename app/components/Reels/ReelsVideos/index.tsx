@@ -25,7 +25,6 @@ function handleScroll(e: NativeSyntheticEvent<NativeScrollEvent>) {
     // how far the item is from the y origin.
     const contentY = e.nativeEvent.contentOffset.y;
     const index = Math.round(contentY / ITEM_HEIGHT);
-    console.log('handl scroll index',index);
    /*  setCurrentVideo(index); */
   }
  

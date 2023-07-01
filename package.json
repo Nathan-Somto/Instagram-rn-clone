@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
+    "date-fns": "^2.30.0",
     "expo": "~48.0.18",
     "expo-av": "~13.2.1",
     "expo-font": "~11.1.1",

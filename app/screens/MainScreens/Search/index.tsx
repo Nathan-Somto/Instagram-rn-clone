@@ -15,7 +15,7 @@ export default function Search() {
     <Screen>
       <View style={styles.inputContainer}>
         <View style={styles.inputBox}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.searchBtn}>
             <Feather name="search" color={"#bbb"} size={16} />
           </TouchableOpacity>
           <TextInput
@@ -40,8 +40,7 @@ export default function Search() {
 const styles = StyleSheet.create({
   inputContainer: {
     alignItems: "center",
-    height: 50,
-    marginTop: 15,
+    marginVertical: 15,
   },
   inputBox: {
     width: "90%",
@@ -57,4 +56,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     paddingHorizontal: 8,
   },
+  searchBtn:{
+    alignSelf:"center"
+  }
 });

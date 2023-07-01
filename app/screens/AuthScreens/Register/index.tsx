@@ -94,7 +94,7 @@ export default function Register({
                     <View
                       style={[
                         styles.input,
-                        { borderColor: `${errors.username ? "red" : "#ccc"}` },
+                        { borderColor: `${(errors.username && touched.username)  ? "red" : "#ccc"}` },
                       ]}
                     >
                       <TextInput
@@ -109,7 +109,7 @@ export default function Register({
                         style={{ color: "white" }}
                       />
                     </View>
-                    {touched.username && (
+                    {(errors.username && touched.username) && (
                       <ErrorMessage>{errors.username}</ErrorMessage>
                     )}
                   </View>
@@ -117,7 +117,7 @@ export default function Register({
                     <View
                       style={[
                         styles.input,
-                        { borderColor: `${errors.username ? "red" : "#ccc"}` },
+                        { borderColor: `${(touched.email && errors.email) ? "red" : "#ccc"}` },
                       ]}
                     >
                       <TextInput
@@ -132,7 +132,7 @@ export default function Register({
                         style={{ color: "white" }}
                       />
                     </View>
-                    {touched.email && (
+                    {(touched.email && errors.email) && (
                       <ErrorMessage>{errors.email}</ErrorMessage>
                     )}
                   </View>
@@ -141,7 +141,7 @@ export default function Register({
                     <View
                       style={[
                         styles.input,
-                        { borderColor: `${errors.password ? "red" : "#ccc"}` },
+                        { borderColor: `${(touched.password && errors.password) ? "red" : "#ccc"}` },
                       ]}
                     >
                       <TextInput
@@ -154,7 +154,7 @@ export default function Register({
                         style={{ color: "white" }}
                       />
                     </View>
-                    {touched.password && (
+                    {(touched.password && errors.password)&& (
                       <ErrorMessage>{errors.password}</ErrorMessage>
                     )}
                   </View>

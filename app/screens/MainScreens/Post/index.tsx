@@ -18,7 +18,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { theme, typographyStyles } from "../../../constants";
 import { db, storage } from "../../../lib/firebase";
-import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, uploadString,uploadBytesResumable } from "firebase/storage";
 import { IPost } from "../../../types";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import useAuth, { authValue } from "../../../hooks/useAuth";
@@ -91,6 +91,28 @@ export default function Post({
   useEffect(() => {
     requestPermission();
   }, []);
+  async function uploadImageAsync(userRef:string){
+    const Blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", image, true);
+      xhr.send(null);
+    });
+    const storageRef = ref(
+      storage,
+      `images/${userRef}/${new Date().getTime()}`
+    );
+    const uploadResult = await uploadBytes(storageRef, Blob as unknown as Blob);
+    //@ts-ignore
+    Blob.close();
+    return await getDownloadURL(uploadResult.ref);
+  }
   async function sharePost() {
     setLoading(true);
     try {
@@ -109,20 +131,14 @@ export default function Post({
           displayName: username,
           uid: userRef,
         } = user;
-        const storageRef = ref(
-          storage,
-          `images/post/${userRef}/${new Date().getTime()}`
-        );
-        const uploadResult = await uploadString(storageRef, image, "data_url");
-        const downloadUrl = await getDownloadURL(uploadResult.ref);
+        const downloadUrl = await  uploadImageAsync(userRef);
         const postData: Omit<IPost, "id"> = {
           caption,
-          comments: [],
-          images: [...downloadUrl],
+          images: [downloadUrl],
           likes: [],
           user: {
-            photoUrl: photoUrl as string,
-            username: username as string,
+            photoUrl: photoUrl ?? '',
+            username: username ?? '',
           },
           userRef: user.uid,
           timestamp: serverTimestamp(),

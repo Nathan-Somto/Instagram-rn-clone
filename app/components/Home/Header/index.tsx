@@ -17,13 +17,13 @@ export default function Header() {
         <TouchableOpacity onPress={() => navigation.navigate("Post")}>
           <MaterialCommunityIcons name="plus-box" color={color} size={size} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity style={{marginHorizontal:15}}>
           <Entypo name="heart-outlined" color={color} size={size} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.message}>
           <Feather name="message-circle" color={color} size={size} />
           <View style={styles.messageText}>
-            <Text style={{ color: "white", textAlign: "center" }}>5</Text>
+            <Text style={{ color: "white", textAlign: "center", fontSize:10 }}>5</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -52,16 +52,17 @@ const styles = StyleSheet.create({
   },
   message: {
     position: "relative",
-    marginLeft: 15,
   },
   messageText: {
     position: "absolute",
     right: -10,
     top: -8,
     backgroundColor: "#eb4d6d",
-    padding: 3,
+    padding: 1.5,
     borderRadius: 10,
     height: 20,
     width: 20,
+    alignItems:"center",
+    justifyContent:"center"
   },
 });

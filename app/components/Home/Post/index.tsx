@@ -11,20 +11,17 @@ export default function Post({ postData }: props) {
   const {
     user: { username, photoUrl },
     images,
-    comments,
     caption,
     id,
-    likes
+  
   } = postData;
   return (
     <View style={PostStyles.container}>
       <PostHeader username={username} photoUrl={photoUrl} />
       <PostImages images={images} />
       <PostFooter
-        comments={comments}
         username={username}
         caption={caption}
-        likes={likes}
         id={id}
       />
     </View>

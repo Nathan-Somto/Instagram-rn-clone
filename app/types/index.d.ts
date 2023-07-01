@@ -3,7 +3,7 @@ import { Timestamp,FieldValue } from "firebase/firestore";
 type likes = string[]
 
 type userRef = string
-type comments = {
+interface IComments{
     user:Omit<IUser, "email">,
     comment:string,
     timestamp:FieldValue | Timestamp | string,
@@ -19,8 +19,7 @@ interface IPost{
     caption:string,
     timestamp:FieldValue | Timestamp | string,
     likes:likes,
-    comments:comments[],
     userRef:userRef,
     id:string;
 }
-export {IPost, IUser, comments, likes}
+export {IPost, IUser, IComments, likes}

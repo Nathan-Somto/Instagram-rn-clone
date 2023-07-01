@@ -86,7 +86,7 @@ export default function Login({
                     <View
                       style={[
                         styles.input,
-                        { borderColor: `${errors.email ? "red" : "#ccc"}` },
+                        { borderColor: `${(errors.email && touched.email) ? "red" : "#ccc"}` },
                       ]}
                     >
                       <TextInput
@@ -101,7 +101,7 @@ export default function Login({
                         style={{ color: "white" }}
                       />
                     </View>
-                    {touched.email && (
+                    {(errors.email && touched.email) && (
                       <ErrorMessage>{errors.email}</ErrorMessage>
                     )}
                   </View>
@@ -110,7 +110,7 @@ export default function Login({
                     <View
                       style={[
                         styles.input,
-                        { borderColor: `${errors.password ? "red" : "#ccc"}` },
+                        { borderColor: `${(touched.password && errors.password) ? "red" : "#ccc"}` },
                       ]}
                     >
                       <TextInput
@@ -123,7 +123,7 @@ export default function Login({
                         style={{ color: "white" }}
                       />
                     </View>
-                    {touched.password && (
+                    {(touched.password && errors.password) && (
                       <ErrorMessage>{errors.password}</ErrorMessage>
                     )}
                   </View>

@@ -1,5 +1,6 @@
 import { View, Image, StyleSheet } from "react-native";
-
+import { getDeviceWidth } from "../../../utils";
+const ITEM_WIDTH = getDeviceWidth();
 export default function Picture() {
   return (
     <View style={styles.pictureContainer}>
@@ -13,11 +14,11 @@ export default function Picture() {
 const styles = StyleSheet.create({
   pictureContainer: {
     width: "33%",
-    padding: 1.5,
-    marginHorizontal: 2,
+    margin: 1,
   },
   picture: {
     height: 200,
-    width: 200,
+    width: ITEM_WIDTH * 0.325 ,
+    resizeMode:"cover"
   },
 });

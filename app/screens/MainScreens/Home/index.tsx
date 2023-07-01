@@ -13,8 +13,8 @@ export default function Home() {
     const docsRef = collection(db, "posts");
     const q = query(docsRef, orderBy("timestamp", "desc"));
     const firebasePosts: IPost[] = [];
-    onSnapshot(q, (docs) => {
-      docs.forEach((doc) => {
+   const unSub = onSnapshot(q, (snapshot) => {
+      snapshot.forEach((doc) => {
         firebasePosts.push({
           ...(doc.data() as unknown as IPost),
           id: doc.id,
@@ -22,6 +22,7 @@ export default function Home() {
       });
       setPosts(firebasePosts);
     });
+    return unSub
   }, []);
   return (
     <Screen>

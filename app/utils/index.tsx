@@ -1,6 +1,6 @@
 import { FieldValue, Timestamp } from "firebase/firestore";
 import { Dimensions } from "react-native";
-
+import {differenceInDays, differenceInHours, differenceInMinutes} from 'date-fns';
 function getDeviceHeight() {
     return Dimensions.get("window").height;
   }
@@ -36,7 +36,24 @@ function formatNumber(num:number){
   }
   return strNum;
 }
-function formatTimestamp(timestamp:FieldValue | Timestamp | string){
-  return `${timestamp}`;
+function formatTimestamp(timestamp:FieldValue | Timestamp | string)
+{
+  if(!(timestamp instanceof Timestamp)){
+    return ''
+  }
+ const postDate = timestamp.toDate();
+ const currentDate = new Date();
+ let diff = differenceInMinutes(currentDate,postDate);
+ if(diff >= 1 && diff <=59)
+ {
+    return `${diff}m`;
+ }
+  diff = differenceInHours(currentDate, postDate);
+  if(diff >= 1 && diff <= 23){
+    return `${diff}h`;
+  }
+  diff = differenceInDays(currentDate, postDate);
+  return `${diff}d`;
 }
+
 export {getDeviceHeight,getDeviceWidth,formatNumber,formatTimestamp};
