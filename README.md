@@ -13,19 +13,19 @@ Instagram Clone with REACT NATIVE! ( Navigation, Context api, Firebase & Expo)
 
 <a href="#" target="_blank">![](https://img.shields.io/badge/Ios%2FAndroid-Up-green)</a>
 ![](https://img.shields.io/badge/Maintained-Yes-indigo)
-![](https://img.shields.io/github/forks/)
-![](https://img.shields.io/github/stars/)
-![](https://img.shields.io/github/issues/)
-![](https://img.shields.io/github/last-commit/)
+![](https://img.shields.io/github/Nathan-Somto/Instagram-rn-clone/forks/)
+![](https://img.shields.io/github/Nathan-Somto/Instagram-rn-clone/stars/)
+![](https://img.shields.io/github/Nathan-Somto/Instagram-rn-clone/issues/)
+![](https://img.shields.io/github/Nathan-Somto/Instagram-rn-clone/last-commit/)
 
 <h4>
     <a href="">View Demo</a>
   <span> · </span>
-    <a href="https://github.com/blob/master/README.md">Documentation</a>
+    <a href="https://github.com/blob/master/Nathan-Somto/Instagram-rn-clone/README.md">Documentation</a>
   <span> · </span>
-    <a href="https://github.com/issues">Report Bug</a>
+    <a href="https://github.com/Nathan-Somto/Instagram-rn-clone/issues">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/issues">Request Feature</a>
+    <a href="https://github.com/Nathan-Somto/Instagram-rn-clone/issues">Request Feature</a>
   </h4>
 </div>
 
