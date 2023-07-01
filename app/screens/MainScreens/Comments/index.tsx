@@ -131,7 +131,7 @@ export default function Comments({
       {loading && <Loader />}
       <Screen>
         <View style={styles.headerContainer}>
-          <TouchableOpacity style={{zIndex:50000}} onPress={()=>{ navigation.goBack(); console.log('clicked') }}>
+          <TouchableOpacity style={{zIndex:50000}} onPress={()=>{ navigation.goBack();  }}>
             <Entypo name="chevron-left" color="#fff" size={20}/>
           </TouchableOpacity>
           <View>

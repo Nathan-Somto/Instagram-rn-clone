@@ -33,63 +33,73 @@ Instagram Clone with REACT NATIVE! ( Navigation, Context api, Firebase & Expo)
 
 - [About the Project](#star2-about-the-project)
   - [Screenshots](#camera-screenshots)
-  - [Tech Stack](#space_invader-tech-stack)
-  - [Features]()
-- [Getting Started](#car)
+  - [Tech Stack](#books-tech)
+  - [Features](#sparkles-features)
+- [Getting Started](#car-getting-started)
    - [Installation](#gear-installation)
-  - [Deployment](#triangular_flag_on_post-deployment)
-- [Contributors](#handshake-contact)
-<!-- #### 🔴 Open the camera app on your device and scan the code below (live demo) -->
-## :construction: Status
-Still under Development  :cry:
+- [Contributors](#busts_in_silhouette-contributors)
+ <!--  - [Deployment](#triangular_flag_on_post-deployment) -->
 
+<!-- #### 🔴 Open the camera app on your device and scan the code below (live demo) -->
+
+## :construction: Status
+Finished Developing
+Yet to Publish :cry:
 ## :star2: About the Project
-## :camera: Screenshots
-### Welcome Screen
+
+### :camera: Screenshots
+
+#### Welcome Screen
 <div align="center">
    <img src="./README_Images/welcome.PNG" width="300" height="auto">
 </div>
 
-### Sign in Screen
+#### Sign in Screen
    <div align="center">
    <img src="./README_Images/signin.PNG" width="300" height="auto">
 </div>
 
-### Sign up Screen
+#### Sign up Screen
 
    <div align="center">
    <img src="./README_Images/signup.PNG" width="300" height="auto">
 </div>
 
-### Home Screen
+#### Home Screen
  <div align="center">
-   <img src="./README_Images/" width="300" height="auto">
+   <img src="./README_Images/home1.PNG" width="300" height="auto">
+   <img src="./README_Images/home2.PNG" width="300" height="auto">
 </div>
 
-### New Post Screen
+#### Comments Screen
+  <div align="center">
+   <img src="./README_Images/comments.PNG" width="300" height="auto">
+</div>
+
+#### New Post Screen
 
 <div align="center">
    <img src="./README_Images/" width="300" height="auto">
 </div>
 
-### Search Screen
+#### Search Screen
  <div align="center">
    <img src="./README_Images/search.PNG" width="300" height="auto">
 </div>
 
-### Reels Screen
+#### Reels Screen
  <div align="center">
    <img src="./README_Images/reels.PNG" width="300" height="auto">
 </div>
 
-### Settings Screen
+#### Settings Screen
  <div align="center">
    <img src="./README_Images/settings.PNG" width="300" height="auto">
 </div>
 
 ## :sparkles: Features
 - [x]  Create Posts 
-- [x] Take a picture from your camera  or camer library.
+- [x] Take a picture from your camera  or camera library.
 - [x] Comment on Posts functionality.
 - [x] Like Posts functionality
 -  [x] View all Posts functionality.
@@ -97,22 +107,22 @@ Still under Development  :cry:
 - [x] Dark mode by default (Cause why not?)
 - [x] Ui clone
 - [x] Form validation
-- [x] Profile image update functionality.
+- [ ] Profile image update functionality.
 - [x] Stack Navigation
 -  [x] Tab Navigation
 
 
-## Tech
+## :books: Tech
  What i used for the project.
 <details>
   <summary>Front End</summary>
   <ul>
-    <li><a href="https://#/">Typescript</a></li>
+    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
     <li><a href="https://docs.expo.dev/workflow/expo-cli">Expo</a></li>
     <li><a href="https://reactnative.dev">React Native</a></li>
-     <li><a href="https://#/">Formik</a></li>
-     <li><a href="https://#/">Yup</a></li>
-     <li><a href="https://#/">React Navigation</a></li>
+     <li><a href="https://formik.org/docs/guides/react-native">Formik</a></li>
+     <li><a href="https://www.npmjs.com/package/yup">Yup</a></li>
+     <li><a href="https://reactnavigation.org/docs/">React Navigation</a></li>
   </ul>
 </details>
 
@@ -120,7 +130,7 @@ Still under Development  :cry:
 <details>
   <summary>Back End</summary>
   <ul>
-    <li><a href="https://#/">Firebase</a></li>
+    <li><a href="https://www.firebase.com/">Firebase</a></li>
   </ul>
 </details>
 
